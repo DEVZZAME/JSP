@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<!-- JNDI(java naming directory interface
+	외부에서 참조할 Resource영역을 미리 준비해두고  필요할 때마다 가져다 쓸 수 있도록 세팅해둔 형태-->
+	<Resource 
+	        auth="Container" 
+      		name="jdbc/oracle_test"
+      		type="javax.sql.DataSource"
+      		driverClassName="oracle.jdbc.driver.OracleDriver"
+      		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+      		url="jdbc:oracle:thin:@localhost:1521:xe"
+      		username="test_pm" password="1111" 
+      		maxActive="20" maxIdle="10" maxWait="1"/>
+</Context>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper 데이터베이스 접근 및 결과를 반환받는 속성파일 -->
+<mapper namespace="b">
+	<!-- 전체게시물 조회 -->
+	<select id="board_list" resultType="board">
+		select * from board order by ref DESC, step ASC
+	</select>
+	
+	<!-- 새글 추가(댓글아님!!) -->
+	<insert id="board_insert"
+			parameterType="board">
+	
+		insert into board values(
+			seq_board_idx.nextVal,
+			#{ name },
+			#{ subject },
+			#{ content },
+			#{ pwd },
+			#{ ip },
+			sysdate,
+			0,
+			seq_board_idx.currVal, --ref
+			0, --step
+			0, --depth
+			0 --del_info
+		)
+	</insert>
+	
+	<!-- 파라미터로 넘어온 idx에 해당하는 게시글 한 건 상세조회 -->
+	<select id="board_one" resultType="board" parameterType="int">
+		select * from board where idx=#{idx}
+		
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="update_readhit" parameterType="int">
+		<!-- idx 위치에 해당하는 게시글의 readhit 컬럼을 1증가 -->
+		update board set readhit = readhit + 1
+		where idx = #{idx}
+	
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
